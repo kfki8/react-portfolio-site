@@ -4,7 +4,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { requestStates } from '../constants';
 import { useSkills } from '../customHooks/useSkills';
 export const Skills = () => {
-  const [state, dispatch] = useReducer(skillReducer, initialState);
+  const [sortedLanguageList, fetchRequestState, converseCountToPercentage] = useSkills();
 
 
   return (
@@ -21,9 +21,10 @@ export const Skills = () => {
           }
           {
             fetchRequestState === requestStates.success && (
-              state.languageList.map((item, index) => (
-                <div className="skill-item" key={index}>                  <p className="description"><strong>{item.language}</strong></p>
-                  <CircularProgressbar value={convertCountToPercentage(item.count)} text={`${convertCountToPercentage(item.count)}%`} />
+              sortedLanguageList().map((item, index) => (
+                <div className="skill-item" key={index}>
+                  <p className="description"><strong>{item.language}</strong></p>
+                  <CircularProgressbar value={converseCountToPercentage(item.count)} text={`${converseCountToPercentage(item.count)}%`} />
                 </div>
               ))
             )
